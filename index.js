@@ -12,7 +12,7 @@ const url = ['https://en.wikipedia.org/wiki/jawbox',
             'https://en.wikipedia.org/wiki/Refused',
             'https://en.wikipedia.org/wiki/Drive_Like_Jehu'];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < url.length; i++) {
   rp(url[i])
     .then(function(html){
       function myWrite(html) {
