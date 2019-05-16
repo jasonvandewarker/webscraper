@@ -13,42 +13,37 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-router.get('/getScraperResults', function(req, res) {
-    //res.json({ message: 'hooray! welcome to our api!' });
-try {
-    // console.log('this is req' + req)
-    console.log(req.query.url)
+// router.get('/getScraperResults', function(req, res) {
+// try {
+//     console.log(req.query.url)
+//
+//     rp(req.query.url)
+//         .then(function(html){
+//             console.log(html);
+//             res.status(200).json({message: html})
+//         })
+//         .catch(function(err){
+//         });
 
-    rp(req.query.url)
-        .then(function(html){
-            //success!
-            console.log(html);
-            res.status(200).json({message: html})
-        })
-        .catch(function(err){
-            //handle error
+    router.get('/getScraperResults', function(req, res) {
+        try {
+            debugger
+    for (let i = 0; i < req.query.url.length; i++) {
+        rp(req.query.url[i])
+            .then(function(html){
+                function myWrite(html) {
+                    fs.writeFile(`./scrape-results/output-${i}.txt`, html, function (err) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                }
+                myWrite(html)
+                res.json({message: "great success!"})
+            }).catch(function(err){
+            console.log(err)
         });
-
-
-
-    // for (let i = 0; i < req.query.url.length; i++) {
-    //
-    //     rp(req.query.url[i])
-    //         .then(function(html){
-    //             function myWrite(html) {
-    //                 fs.writeFile(`./scrape-results/output-${i}.txt`, html, function (err) {
-    //                     if (err) {
-    //                         console.log(err)
-    //                     }
-    //                 })
-    //             }
-    //             myWrite(html)
-    //
-    //             res.json({message: "great success!"})
-    //         }).catch(function(err){
-    //         console.log(err)
-    //     });
-    // }
+    }
 
 
 
