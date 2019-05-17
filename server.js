@@ -16,7 +16,6 @@ router.use(function(req, res, next) {
 });
 
 router.get('/getScraperResults', function(req, res) {
-    debugger
 try {
     let websiteArray = req.query.url.split(',')
     for (let i = 0; i < websiteArray.length; i++) {
@@ -31,7 +30,8 @@ try {
                 }
                 myWrite(html)
             })
-    }
+        }
+    res.status(200).json({message: "success"})
 }
 catch(err) {
     res.status(404).json({error: err})
